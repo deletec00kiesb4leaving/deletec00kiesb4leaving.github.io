@@ -1,8 +1,332 @@
-<html>
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cybersecurity Resume (Default Dark Mode)</title>
+  <!-- Include the Font Awesome CDN for icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-nh5F3I0JkHBmWXhwVcD+6kMqcBR2ACems3PoTPTk+3MfI3Dcwe7gPd/2fEJo2dLzNrxB5u09DWSLFtZMzpqzNw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    /* 
+      DEFAULT: Dark mode (no extra class required).
+      We’ll use a .light-mode class to override these styles for light mode.
+    */
 
-    </head>
-    <body>
-        
-    </body>
+    /* Base resets */
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Default (Dark) Mode Styles */
+    body {
+      background-color: #000;   /* Dark background */
+      color: #fff;             /* Light text */
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s; /* Smooth transition */
+    }
+
+    h1, h2, h3 {
+      margin: 10px 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      border-bottom: 1px solid #444; /* Subtle border in dark mode */
+      padding-bottom: 4px;
+      margin-bottom: 15px;
+    }
+
+    /* Sections */
+    .section {
+      background: #111;  /* Slightly lighter black for contrast */
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .section:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .name {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .contact-info {
+      font-size: 0.95em;
+      margin-top: 5px;
+      color: #ccc; /* Slightly lighter than #fff */
+    }
+
+    /* Link Section (Icons + URLs) */
+    .link-section {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .link-section a {
+      color: #fff;        /* White text for dark mode */
+      text-decoration: none;
+      font-size: 0.95em;
+      transition: color 0.3s;
+    }
+
+    .link-section a:hover {
+      color: #ccc;        /* Hover effect */
+    }
+
+    /* Lists, etc. */
+    ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      padding-left: 0;
+    }
+
+    .project-title {
+      font-weight: bold;
+    }
+
+    .job-title {
+      font-weight: bold;
+    }
+
+    .company {
+      font-style: italic;
+      color: #ccc;
+    }
+
+    .date-range {
+      float: right;
+      color: #999;
+    }
+
+    .no-margin {
+      margin: 0;
+    }
+
+    /* 
+      LIGHT MODE OVERRIDES
+      Toggled by adding the "light-mode" class to the <body>.
+    */
+    body.light-mode {
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    body.light-mode h2 {
+      border-bottom-color: #ccc; 
+    }
+
+    body.light-mode .section {
+      background: #fff;
+    }
+
+    body.light-mode .contact-info {
+      color: #555;
+    }
+
+    body.light-mode .link-section a {
+      color: #333;
+    }
+
+    body.light-mode .link-section a:hover {
+      color: #666;
+    }
+
+    body.light-mode .company {
+      color: #555;
+    }
+
+    body.light-mode .date-range {
+      color: #999;
+    }
+
+    /*
+      Toggle Button Style
+      Position it so it’s easily accessible in the top-right corner
+    */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;          /* Ensure the button is above other elements */
+      padding: 8px 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    /* Hover effect for the toggle button */
+    .toggle-btn:hover {
+      background: #555;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Theme Toggle Button -->
+  <button class="toggle-btn" onclick="toggleTheme()">
+    Toggle Light Mode
+  </button>
+
+  <!-- Link Section (Icons + URLs) -->
+  <div class="link-section">
+    <a href="https://github.com/YourUsername" target="_blank" title="GitHub Profile">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://tryhackme.com/p/YourUsername" target="_blank" title="TryHackMe Profile">
+      <i class="fas fa-user-secret"></i> TryHackMe
+    </a>
+    <!-- Contact now opens a new page (contact.html) -->
+    <a href="contact.html" target="_blank" title="Get in touch">
+      <i class="fas fa-envelope"></i> Contact
+    </a>
+  </div>
+
+  <!-- Header / Contact Info -->
+  <header>
+    <h1 class="name">John Smith</h1>
+    <div class="contact-info">
+      Based in CyberCity, USA | (123) 456-7890 | john.smith@example.com
+    </div>
+  </header>
+
+  <!-- Professional Summary -->
+  <section class="section">
+    <h2>Professional Summary</h2>
+    <p>
+      Passionate Cybersecurity Analyst with 5+ years of experience in network 
+      defense, penetration testing, and threat intelligence. Adept at 
+      identifying vulnerabilities and securing enterprise systems. 
+      Experienced in writing detailed exploit write-ups and collaborating 
+      with cross-functional teams to implement robust security measures.
+    </p>
+  </section>
+
+  <!-- Cybersecurity Projects & Write-ups -->
+  <section class="section">
+    <h2>Cybersecurity Projects & Write-ups</h2>
+    <ul>
+      <li>
+        <span class="project-title">PenTestReports.com Write-ups:</span> 
+        Authored detailed post-exploit analyses on popular CTF platforms, 
+        focusing on privilege escalation and lateral movement techniques.
+      </li>
+      <li>
+        <span class="project-title">Red Team Simulation:</span> 
+        Led a simulated red team exercise for a mid-sized financial firm, 
+        uncovering critical vulnerabilities in their internal network.
+      </li>
+      <li>
+        <span class="project-title">Vulnerability Research:</span> 
+        Discovered and responsibly disclosed zero-day flaws in open-source 
+        web application frameworks, documenting full remediation steps.
+      </li>
+      <li>
+        <span class="project-title">TryHackMe Labs:</span> 
+        Completed advanced attack-and-defend scenarios, including 
+        web exploitation, reverse engineering, and malware analysis labs.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Skills -->
+  <section class="section">
+    <h2>Skills</h2>
+    <ul>
+      <li>Penetration Testing: Metasploit, Burp Suite, Nmap</li>
+      <li>Threat Intelligence & OSINT</li>
+      <li>Reverse Engineering & Malware Analysis</li>
+      <li>Python & Bash Scripting</li>
+      <li>Network Security: Firewalls, IDS/IPS, SIEM Tools</li>
+      <li>Soft Skills: Report Writing, Collaboration, Problem Solving</li>
+    </ul>
+  </section>
+
+  <!-- Experience -->
+  <section class="section">
+    <h2>Experience</h2>
+    
+    <div class="experience-item">
+      <p class="no-margin">
+        <span class="job-title">Cybersecurity Analyst</span>, 
+        <span class="company">SecureShield Solutions</span>
+        <span class="date-range">2020 - Present</span>
+      </p>
+      <ul>
+        <li>Conducted regular internal and external penetration tests to identify vulnerabilities.</li>
+        <li>Managed SIEM alerts to proactively isolate and remediate security threats.</li>
+        <li>Developed automated scripts for vulnerability scanning and log analysis.</li>
+      </ul>
+    </div>
+    
+    <div class="experience-item" style="margin-top: 15px;">
+      <p class="no-margin">
+        <span class="job-title">Security Researcher</span>, 
+        <span class="company">Freelance</span>
+        <span class="date-range">2016 - 2020</span>
+      </p>
+      <ul>
+        <li>Performed bug bounty testing on web applications, successfully disclosing critical issues.</li>
+        <li>Authored security blog posts and technical write-ups for CTF challenges.</li>
+        <li>Collaborated with open-source communities to patch security gaps in widely-used libraries.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section">
+    <h2>Education</h2>
+    <p>
+      Bachelor of Science in Cybersecurity, XYZ University (2012 - 2016)
+    </p>
+  </section>
+
+  <!-- Certifications -->
+  <section class="section">
+    <h2>Certifications</h2>
+    <ul>
+      <li>CompTIA Security+</li>
+      <li>CEH (Certified Ethical Hacker)</li>
+      <li>eWPT (eLearnSecurity Web Penetration Tester)</li>
+    </ul>
+  </section>
+
+  <script>
+    /*
+      Toggles the "light-mode" class on the <body>.
+      By default, the page is in dark mode.
+      When toggled, "light-mode" overrides with a light theme.
+    */
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
+  </script>
+</body>
 </html>

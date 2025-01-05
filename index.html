@@ -3,14 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>Cybersecurity Resume (Default Dark Mode)</title>
-  <!-- Include the Font Awesome CDN for icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    integrity="sha512-nh5F3I0JkHBmWXhwVcD+6kMqcBR2ACems3PoTPTk+3MfI3Dcwe7gPd/2fEJo2dLzNrxB5u09DWSLFtZMzpqzNw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
   <style>
     /* 
       DEFAULT: Dark mode (no extra class required).
@@ -77,7 +69,7 @@
       color: #ccc; /* Slightly lighter than #fff */
     }
 
-    /* Link Section (Icons + URLs) */
+    /* Link Section (No Icons) */
     .link-section {
       display: flex;
       justify-content: center;
@@ -195,17 +187,13 @@
     Toggle Light Mode
   </button>
 
-  <!-- Link Section (Icons + URLs) -->
+  <!-- Link Section (GitHub & TryHackMe) -->
   <div class="link-section">
     <a href="https://github.com/YourUsername" target="_blank" title="GitHub Profile">
-      <i class="fab fa-github"></i> GitHub
+      GitHub
     </a>
     <a href="https://tryhackme.com/p/YourUsername" target="_blank" title="TryHackMe Profile">
-      <i class="fas fa-user-secret"></i> TryHackMe
-    </a>
-    <!-- Contact now opens a new page (contact.html) -->
-    <a href="contact.html" target="_blank" title="Get in touch">
-      <i class="fas fa-envelope"></i> Contact
+      TryHackMe
     </a>
   </div>
 
@@ -213,7 +201,12 @@
   <header>
     <h1 class="name">John Smith</h1>
     <div class="contact-info">
-      Based in CyberCity, USA | (123) 456-7890 | john.smith@example.com
+      Based in CyberCity, USA | (123) 456-7890 | 
+      john.smith@example.com
+      <!-- Asterisk near the email to download PGP key -->
+      <a href="my_pgp_key.asc" download title="Download my PGP key">
+        <sup>*</sup>
+      </a>
     </div>
   </header>
 

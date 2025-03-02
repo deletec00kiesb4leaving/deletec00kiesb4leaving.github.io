@@ -65,6 +65,11 @@
             padding-left: 20px;
         }
 
+        li::before {
+            content: "- ";
+            color: #87CEEB;
+        }
+
         .hidden {
             display: none;
         }
@@ -88,7 +93,7 @@
 
     <script>
         const commands = {
-            'help': 'Available commands: clear, ls, ls -l, whoami, cat [filename], cd [project], top',
+            'help': '', // Handled dynamically
             'clear': '',
             'ls': `dir contents:\n- project-1/  (<a href="https://github.com/xAI/project-1">View</a>)\n- project-2/  (<a href="https://github.com/xAI/project-2">View</a>)\n- project-3/  (<a href="https://github.com/xAI/project-3">View</a>)\n- README.md`,
             'ls -l': '', // Handled dynamically
@@ -137,6 +142,20 @@
             window.scrollTo(0, document.body.scrollHeight);
         }
 
+        // Function to display help in list format
+        function displayHelp() {
+            let helpOutput = 'Available commands and their functions:<br><ul>';
+            helpOutput += '<li>clear: Clears the terminal output.</li>';
+            helpOutput += '<li>ls: Lists the contents of the current directory (projects and files).</li>';
+            helpOutput += '<li>ls -l: Displays a detailed list of directory contents with descriptions and links.</li>';
+            helpOutput += '<li>whoami: Shows your username.</li>';
+            helpOutput += '<li>cat [filename]: Displays the content of a specified file or directory (e.g., project-1/, README.md).</li>';
+            helpOutput += '<li>cd [project]: Navigates to a project directory, opening its GitHub repository in a new tab.</li>';
+            helpOutput += '<li>top: Displays a continuously updating list of your programming skills as processes, exit with Ctrl+C.</li>';
+            helpOutput += '</ul>';
+            addOutput(helpOutput);
+        }
+
         // Function to start the top-like display
         function startTop() {
             output.innerHTML = ''; // Clear output for top
@@ -148,25 +167,22 @@
                 const now = new Date();
                 const timestamp = now.toLocaleString('en-US', { hour12: false });
                 const loadAvg = '1.23, 0.95, 0.87'; // Static for simplicity
-                let topOutput = `top - ${timestamp} user: [Your Name] load average: ${loadAvg}<br>`;
-                topOutput += 'Tasks: 12 total<br><br>';
+                let topOutput = `top - ${timestamp} user: [Your Name] load average: ${loadAvg}\n`;
+                topOutput += 'Tasks: 12 total\n\n';
                 // Header with fixed widths
-                topOutput += 'PID    COMMAND         #PORT  %CPU  %MEM  TIME     STATE<br>';
-                topOutput += '<ul>';
+                topOutput += 'PID    COMMAND         #PORT  %CPU  %MEM  TIME     STATE\n';
                 skills.forEach(skill => {
                     // Ensure TIME is formatted as HH:MM:SS if needed
                     let formattedTime = skill.time.length === 5 ? `00:${skill.time}` : skill.time;
-                    topOutput += `<li>` +
-                        `${skill.pid.padEnd(6)} ` +
+                    topOutput += `${skill.pid.padEnd(6)} ` +
                         `${skill.name.padEnd(15)} ` +
                         `${('#' + skill.port).padEnd(7)} ` +
                         `${skill.cpu.padEnd(5)} ` +
                         `${skill.mem.padEnd(5)} ` +
                         `${formattedTime.padEnd(8)} ` +
-                        `${skill.state}` +
-                        `</li>`;
+                        `${skill.state}\n`;
                 });
-                topOutput += '</ul><br>Press Ctrl+C to quit';
+                topOutput += '\nPress Ctrl+C to quit';
                 output.innerHTML = `<p>${topOutput}</p>`;
             }
             
@@ -203,6 +219,8 @@
                         startTop();
                     } else if (command === 'ls -l') {
                         displayLsLong();
+                    } else if (command === 'help') {
+                        displayHelp();
                     } else {
                         addOutput(commands[command]);
                     }

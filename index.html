@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coder's Terminal</title>
+    <title>deletec00kiesb4leaving's Terminal</title>
     <style>
         body {
             background: #1d1e20;
@@ -13,34 +13,34 @@
             padding: 20px;
             overflow: hidden;
         }
-        
+
         #terminal {
             max-width: 800px;
             margin: 0 auto;
             min-height: 400px;
         }
-        
+
         .blink {
             animation: blink 1s step-end infinite;
         }
-        
+
         @keyframes blink {
             50% { opacity: 0; }
         }
-        
+
         .prompt {
             color: #87CEEB;
         }
-        
+
         .command {
             color: #FFFFFF;
         }
-        
+
         #input-line {
             display: flex;
             align-items: center;
         }
-        
+
         #input {
             background: none;
             border: none;
@@ -50,12 +50,12 @@
             outline: none;
             width: 100%;
         }
-        
+
         a {
             color: #87CEEB;
             text-decoration: none;
         }
-        
+
         a:hover {
             text-decoration: underline;
         }
@@ -78,12 +78,49 @@
             pointer-events: none;
             opacity: 0.5;
         }
+
+        #top-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        #top-modal-content {
+            background: #1d1e20;
+            color: #87CEEB;
+            font-family: 'Courier New', monospace;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            white-space: pre-wrap; /* Preserve whitespace and newlines */
+            max-height: 80vh;
+            overflow-y: auto;
+            border: none; /* Removed green border, matching webpage style */
+        }
+
+        #top-modal-close {
+            color: #87CEEB;
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #top-modal-close:hover {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <div id="terminal">
         <div id="output">
-            <p>Welcome to [Your Name]'s Coding Terminal. Type 'help' to start.</p>
+            <p>Welcome to deletec00kiesb4leaving's Terminal. Type 'help' to start.</p>
         </div>
         <div id="input-line">
             <span class="prompt">user@code:~$ </span>
@@ -91,41 +128,51 @@
         </div>
     </div>
 
+    <!-- Popup for top command -->
+    <div id="top-modal">
+        <div id="top-modal-content">
+            <span id="top-modal-close">×</span>
+            <div id="top-modal-output"></div>
+        </div>
+    </div>
+
     <script>
         const commands = {
             'help': '', // Handled dynamically
             'clear': '',
-            'ls': `dir contents:\n- project-1/  (<a href="https://github.com/xAI/project-1">View</a>)\n- project-2/  (<a href="https://github.com/xAI/project-2">View</a>)\n- project-3/  (<a href="https://github.com/xAI/project-3">View</a>)\n- README.md`,
-            'ls -l': '', // Handled dynamically
-            'whoami': '[Your Name]',
+            'ls': `cybersec/  (<a href="https://github.com/deletec00kiesb4leaving/cybersec">View</a>) <br> recontool/  (<a href="https://github.com/deletec00kiesb4leaving/recontool">View</a>) <br> twitchbot/  (<a href="https://github.com/deletec00kiesb4leaving/twitchbot">View</a>) <br> dns-server.md <br> firewall.md <br> README.md`,
+            'whoami': 'deletec00kiesb4leaving - Passionate about technology with strong experience in Linux, networks, and cybersecurity. Competent in system administration and vulnerability analysis. Self-taught, solution-focused, and committed to technical excellence. <br><br><h4>Core Skills</h4>Privacy and Online Monitoring<br>OSINT and Forensic Analysis<br>Vulnerability Analysis and Remediation<br>Cryptography and Authentication<br>Development of Automation Tools<br>Programming in Python, Bash, UNIX System Administration<br>Process Documentaion',
             'top': ''
         };
 
         const fileContents = {
-            'project-1/': '[Project 1 content goes here]\nThis is a placeholder for Project 1 details.\nLink: <a href="https://github.com/xAI/project-1">View</a>',
-            'project-2/': '[Project 2 content goes here]\nThis is a placeholder for Project 2 details.\nLink: <a href="https://github.com/xAI/project-2">View</a>',
-            'project-3/': '[Project 3 content goes here]\nThis is a placeholder for Project 3 details.\nLink: <a href="https://github.com/xAI/project-3">View</a>',
-            'readme.md': 'Welcome to [Your Name]\'s Project Repository\n\nThis is a README file containing basic information about my projects.\n\nContact: [your.email@example.com]\nGitHub: [github.com/username]'
+            'dns-server.md': 'A local DNS server built to encrypt DNS requests, shielding them from ISP monitoring. Forwards specified domains within the network and routes queries to user-defined recursive DNS forwarders. Runs in a Docker container and includes firewall protection against DoS attacks. Secure and customize your DNS resolution with ease. <br><br> Currently Closed-Source',
+            'firewall.md': 'A Python-based firewall designed to detect and block Denial-of-Service (DoS) attacks and SYN scanning attempts. Automatically blocks offending IP addresses for 10 minutes to counter IP rotation tactics. Sends a cheeky "try harder" message to attackers monitoring traffic. Enhance your network security with this lightweight, customizable script. <br><br>Currently Closed-Source',
+            'readme.md': 'Welcome to deletec00kiesb4leaving\'s Project Repository.<br>This is a README file containing basic information about my projects.<br><br>Contact: [send.compare460@aleeas.com]<br>GitHub: [github.com/deletec00kiesb4leaving]'
         };
 
         const skills = [
-            { name: 'Python', cpu: '15.2', mem: '5.1', time: '12:34', pid: '1001', state: 'R', port: '8080' },
-            { name: 'JavaScript', cpu: '12.8', mem: '4.9', time: '10:15', pid: '1002', state: 'S', port: '3000' },
-            { name: 'C++', cpu: '8.5', mem: '3.2', time: '08:22', pid: '1003', state: 'R', port: '5000' },
-            { name: 'Java', cpu: '10.1', mem: '6.0', time: '15:47', pid: '1004', state: 'S', port: '8081' },
-            { name: 'HTML/CSS', cpu: '5.3', mem: '2.8', time: '06:19', pid: '1005', state: 'R', port: '80' },
-            { name: 'SQL', cpu: '7.9', mem: '3.5', time: '09:33', pid: '1006', state: 'S', port: '3306' },
-            { name: 'Git', cpu: '4.2', mem: '1.9', time: '04:55', pid: '1007', state: 'R', port: '9418' },
-            { name: 'Node.js', cpu: '11.6', mem: '5.5', time: '11:28', pid: '1008', state: 'S', port: '3001' },
-            { name: 'React', cpu: '9.4', mem: '4.7', time: '07:41', pid: '1009', state: 'R', port: '3002' },
-            { name: 'Linux', cpu: '6.7', mem: '3.0', time: '05:12', pid: '1010', state: 'S', port: '22' },
-            { name: 'CyberSec', cpu: '13.0', mem: '6.2', time: '14:09', pid: '1011', state: 'R', port: '443' },
-            { name: 'Docker', cpu: '8.1', mem: '4.0', time: '10:50', pid: '1012', state: 'S', port: '2375' }
+            { name: 'Python', cpu: '15.2', mem: '5.1', time: '12:34', pid: '1001', state: 'Running', port: '8080' },
+            { name: 'JavaScript', cpu: '12.8', mem: '4.9', time: '10:15', pid: '1002', state: 'Slepping', port: '3000' },
+            { name: 'TypeScript', cpu: '8.5', mem: '3.2', time: '08:22', pid: '1003', state: 'Running', port: '5000' },
+            { name: 'Bash', cpu: '10.1', mem: '6.0', time: '15:47', pid: '1004', state: 'Slepping', port: '8081' },
+            { name: 'HTML/CSS', cpu: '5.3', mem: '2.8', time: '06:19', pid: '1005', state: 'Running', port: '80' },
+            { name: 'SQL', cpu: '7.9', mem: '3.5', time: '09:33', pid: '1006', state: 'Slepping', port: '3306' },
+            { name: 'Git', cpu: '4.2', mem: '1.9', time: '04:55', pid: '1007', state: 'Running', port: '9418' },
+            { name: 'Node.js', cpu: '11.6', mem: '5.5', time: '11:28', pid: '1008', state: 'Slepping', port: '3001' },
+            { name: 'Express.js', cpu: '9.4', mem: '4.7', time: '07:41', pid: '1009', state: 'Running', port: '3002' },
+            { name: 'Linux', cpu: '6.7', mem: '3.0', time: '05:12', pid: '1010', state: 'Slepping', port: '22' },
+            { name: 'Cyber Security', cpu: '13.0', mem: '6.2', time: '14:09', pid: '1011', state: 'Running', port: '443' },
+            { name: 'Docker', cpu: '8.1', mem: '4.0', time: '10:50', pid: '1012', state: 'Slepping', port: '2375' }
         ];
 
         const output = document.getElementById('output');
         const input = document.getElementById('input');
         const inputLine = document.getElementById('input-line');
+        const topModal = document.getElementById('top-modal');
+        const topModalContent = document.getElementById('top-modal-content');
+        const topModalClose = document.getElementById('top-modal-close');
+        const topModalOutput = document.getElementById('top-modal-output');
         let commandHistory = [];
         let historyIndex = -1;
         let topInterval = null;
@@ -145,21 +192,20 @@
         // Function to display help in list format
         function displayHelp() {
             let helpOutput = 'Available commands and their functions:<br><ul>';
+            helpOutput += '<li>cat [filename]: Displays the content of a specified file (e.g., cat README.md).</li>';
+            helpOutput += '<li>cd [project]: Navigates to a GitHub repository in a new tab.</li>';
             helpOutput += '<li>clear: Clears the terminal output.</li>';
             helpOutput += '<li>ls: Lists the contents of the current directory (projects and files).</li>';
-            helpOutput += '<li>ls -l: Displays a detailed list of directory contents with descriptions and links.</li>';
+            helpOutput += '<li>top: Displays a list of programming skills as processes.</li>';
             helpOutput += '<li>whoami: Shows your username.</li>';
-            helpOutput += '<li>cat [filename]: Displays the content of a specified file or directory (e.g., project-1/, README.md).</li>';
-            helpOutput += '<li>cd [project]: Navigates to a project directory, opening its GitHub repository in a new tab.</li>';
-            helpOutput += '<li>top: Displays a continuously updating list of your programming skills as processes, exit with Ctrl+C.</li>';
             helpOutput += '</ul>';
             addOutput(helpOutput);
         }
 
-        // Function to start the top-like display
+        // Function to start the top-like display in a popup
         function startTop() {
-            output.innerHTML = ''; // Clear output for top
-            inputLine.classList.add('hidden'); // Hide input line
+            topModal.style.display = 'block'; // Show popup
+            inputLine.classList.add('hidden'); // Hide terminal input line
             input.disabled = true; // Disable input while top is running
             input.classList.add('disabled'); // Add visual indication of being disabled
 
@@ -167,38 +213,44 @@
                 const now = new Date();
                 const timestamp = now.toLocaleString('en-US', { hour12: false });
                 const loadAvg = '1.23, 0.95, 0.87'; // Static for simplicity
-                let topOutput = `top - ${timestamp} user: [Your Name] load average: ${loadAvg}\n`;
+                let topOutput = `top - ${timestamp} \nuser: deletec00kiesb4leaving load avg: ${loadAvg}\n`;
                 topOutput += 'Tasks: 12 total\n\n';
-                // Header with fixed widths
-                topOutput += 'PID    COMMAND         #PORT  %CPU  %MEM  TIME     STATE\n';
+                // Header with exact widths
+                topOutput += 'PID    COMMAND         #PORT  %CPU   %MEM    TIME      STATE\n';
                 skills.forEach(skill => {
-                    // Ensure TIME is formatted as HH:MM:SS if needed
-                    let formattedTime = skill.time.length === 5 ? `00:${skill.time}` : skill.time;
-                    topOutput += `${skill.pid.padEnd(6)} ` +
-                        `${skill.name.padEnd(15)} ` +
-                        `${('#' + skill.port).padEnd(7)} ` +
-                        `${skill.cpu.padEnd(5)} ` +
-                        `${skill.mem.padEnd(5)} ` +
-                        `${formattedTime.padEnd(8)} ` +
-                        `${skill.state}\n`;
+                    // Ensure TIME is formatted as HH:MM:SS
+                    let formattedTime = skill.time.padStart(5, '0'); // Ensure MM:SS format
+                    if (formattedTime.length === 5) {
+                        formattedTime = `00:${formattedTime}`; // Convert MM:SS to HH:MM:SS
+                    }
+                    topOutput += `${skill.pid.padEnd(6)} ` + // PID (e.g., "1001  ")
+                        `${skill.name.padEnd(15)} ` + // COMMAND (e.g., "Python         ")
+                        `${('#' + skill.port).padEnd(7)} ` + // #PORT (e.g., "#8080  ")
+                        `${skill.cpu.padEnd(6)} ` + // %CPU (e.g., "15.2  ")
+                        `${skill.mem.padEnd(6)} ` + // %MEM (e.g., "5.1   ")
+                        `${formattedTime.padEnd(9)} ` + // TIME (e.g., "12:34:00 ")
+                        `${skill.state}\n`; // STATE (e.g., "R")
                 });
                 topOutput += '\nPress Ctrl+C to quit';
-                output.innerHTML = `<p>${topOutput}</p>`;
+                topModalOutput.textContent = topOutput; // Update popup content
             }
-            
+
             updateTop(); // Initial display
             topInterval = setInterval(updateTop, 1000); // Update every second
         }
 
-        // Function to display ls -l in list format
-        function displayLsLong() {
-            let lsOutput = 'dir contents (long format):<br><ul>';
-            lsOutput += `<li>project-1/ - [Description 1] (<a href="https://github.com/xAI/project-1">View</a>)</li>`;
-            lsOutput += `<li>project-2/ - [Description 2] (<a href="https://github.com/xAI/project-2">View</a>)</li>`;
-            lsOutput += `<li>project-3/ - [Description 3] (<a href="https://github.com/xAI/project-3">View</a>)</li>`;
-            lsOutput += `<li>README.md - Project documentation</li>`;
-            lsOutput += '</ul>';
-            addOutput(lsOutput);
+        // Function to close the top popup
+        function closeTop() {
+            if (topInterval) {
+                clearInterval(topInterval);
+                topInterval = null;
+                topModal.style.display = 'none'; // Hide popup
+                inputLine.classList.remove('hidden'); // Show terminal input line
+                input.disabled = false; // Re-enable input
+                input.classList.remove('disabled'); // Remove disabled visual indication
+                input.value = ''; // Clear input field (no "top terminated" message)
+                input.focus(); // Focus on input for next command
+            }
         }
 
         // Handle command input
@@ -206,25 +258,23 @@
             if (e.key === 'Enter') {
                 const command = input.value.trim().toLowerCase();
                 const prompt = document.querySelector('.prompt').textContent;
-                
+
                 if (command !== '') {
                     commandHistory.unshift(command);
                     historyIndex = -1;
                 }
-                
+
                 addOutput(`${prompt}${command}`);
-                
+
                 if (command in commands) {
                     if (command === 'top') {
                         startTop();
-                    } else if (command === 'ls -l') {
-                        displayLsLong();
                     } else if (command === 'help') {
                         displayHelp();
                     } else {
                         addOutput(commands[command]);
                     }
-                } 
+                }
                 else if (command.startsWith('cat ')) {
                     const filename = command.slice(4).trim();
                     if (filename in fileContents) {
@@ -232,22 +282,22 @@
                     } else if (filename === '') {
                         addOutput('cat: missing file operand. Try \'cat [filename]\'');
                     } else {
-                        addOutput(`cat: ${filename}: No such file or directory`);
+                        addOutput(`cat: ${filename}: No such file.`);
                     }
                 }
                 else if (command.startsWith('cd ')) {
                     const project = command.slice(3).trim(); // Extract project name after 'cd '
                     if (project === '') {
                         addOutput('cd: missing directory operand. Try \'cd [project]\'');
-                    } else if (project === 'project-1/' || project === 'project-1') {
-                        window.open('https://github.com/xAI/project-1', '_blank'); // Open GitHub repo in new tab
-                        addOutput(`Navigating to project-1/ (GitHub repository)`);
-                    } else if (project === 'project-2/' || project === 'project-2') {
-                        window.open('https://github.com/xAI/project-2', '_blank'); // Open GitHub repo in new tab
-                        addOutput(`Navigating to project-2/ (GitHub repository)`);
-                    } else if (project === 'project-3/' || project === 'project-3') {
-                        window.open('https://github.com/xAI/project-3', '_blank'); // Open GitHub repo in new tab
-                        addOutput(`Navigating to project-3/ (GitHub repository)`);
+                    } else if (project === 'cybersec/' || project === 'cybersec') {
+                        window.open('https://github.com/deletec00kiesb4leaving/cybersec', '_blank'); // Open GitHub repo in new tab
+                        addOutput(`Navigating to cybersec/ (GitHub repository)`);
+                    } else if (project === 'recontool/' || project === 'recontool') {
+                        window.open('https://github.com/deletec00kiesb4leaving/recontool', '_blank'); // Open GitHub repo in new tab
+                        addOutput(`Navigating to recontool/ (GitHub repository)`);
+                    } else if (project === 'twitchbot/' || project === 'twitchbot') {
+                        window.open('https://github.com/deletec00kiesb4leaving/twitchbot', '_blank'); // Open GitHub repo in new tab
+                        addOutput(`Navigating to twitchbot/ (GitHub repository)`);
                     } else {
                         addOutput(`cd: ${project}: No such directory`);
                     }
@@ -255,7 +305,7 @@
                 else if (command !== '') {
                     addOutput(`Command not found: ${command}. Type 'help' for available commands.`);
                 }
-                
+
                 input.value = '';
             }
         });
@@ -266,22 +316,22 @@
                 if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     if (commandHistory.length === 0) return;
-                    
+
                     if (historyIndex < commandHistory.length - 1) {
                         historyIndex++;
                     }
-                    
+
                     if (historyIndex >= 0) {
                         input.value = commandHistory[historyIndex];
                     }
                 } else if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     if (commandHistory.length === 0) return;
-                    
+
                     if (historyIndex > -1) {
                         historyIndex--;
                     }
-                    
+
                     if (historyIndex >= 0) {
                         input.value = commandHistory[historyIndex];
                     } else {
@@ -295,17 +345,12 @@
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.key === 'c' && topInterval) {
                 e.preventDefault(); // Prevent default Ctrl+C behavior
-                clearInterval(topInterval);
-                topInterval = null;
-                output.innerHTML = '';
-                inputLine.classList.remove('hidden'); // Show input line again
-                input.disabled = false; // Re-enable input
-                input.classList.remove('disabled'); // Remove disabled visual indication
-                addOutput('user@code:~$ top terminated');
-                input.value = ''; // Clear input field
-                input.focus(); // Focus on input for next command
+                closeTop();
             }
         });
+
+        // Close popup when clicking the close button (optional, for testing)
+        topModalClose.addEventListener('click', closeTop);
 
         // Focus input on click anywhere, but only if not disabled
         document.addEventListener('click', () => {
